@@ -59,4 +59,13 @@ class Chain {
 }
 Chain.instance = new Chain();
 class Wallet {
+    constructor() {
+        const keypair = crypto.generateKeyPairSync('rsa', {
+            modulusLength: 2048,
+            publicKeyEncoding: { type: 'spki', format: 'pem' },
+            privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
+        });
+        this.privateKey = keypair.privateKey;
+        this.publicKey = keypair.publicKey;
+    }
 }

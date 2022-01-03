@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
 
-class Transaction{
+class Transaction {
     constructor(
         public amount: number,
         public payer: string, //public key
@@ -49,5 +49,18 @@ class Chain {
 }
 
 class Wallet {
+    public publicKey: string;
+    public privateKey: string;
+
+    constructor(){
+        const keypair = crypto.generateKeyPairSync('rsa', {
+            modulusLength: 2048,
+            publicKeyEncoding: {type: 'spki', format: 'pem'},
+            privateKeyEncoding: {type: 'pkcs8', format: 'pem'}
+        });
+
+        this.privateKey = keypair.privateKey;
+        this.publicKey = keypair.publicKey;
+    }
 
 }
