@@ -1,1 +1,1 @@
-# mock-blockchain-demo
+# Node blockchain demo
