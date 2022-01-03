@@ -53,8 +53,13 @@ class Chain {
         return this.chain[this.chain.length - 1];
     }
     addBlock(transaction, senderPublicKey, signature) {
-        const newBlock = new Block(this.lastBlock.hash, transaction);
-        this.chain.push(newBlock);
+        const verifier = crypto.createVerify('SHA256');
+        verifier.update(transaction.toString());
+        const isValid = verifier.verify(senderPublicKey, signature);
+        if (isValid) {
+            const newBlock = new Block(this.lastBlock.hash, transaction);
+            this.chain.push(newBlock);
+        }
     }
 }
 Chain.instance = new Chain();
@@ -73,6 +78,7 @@ class Wallet {
         const sign = crypto.createSign('SHA256');
         sign.update(transaction.toString()).end();
         const signature = sign.sign(this.privateKey);
+        //in real life the following would be sent over the internet to be verified
         Chain.instance.addBlock(transaction, this.publicKey, signature);
     }
 }
