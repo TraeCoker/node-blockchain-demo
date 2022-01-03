@@ -52,6 +52,10 @@ class Chain {
     get lastBlock() {
         return this.chain[this.chain.length - 1];
     }
+    addBlock(transaction, senderPublicKey, signature) {
+        const newBlock = new Block(this.lastBlock.hash, transaction);
+        this.chain.push(newBlock);
+    }
 }
 Chain.instance = new Chain();
 class Wallet {

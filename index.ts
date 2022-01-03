@@ -41,7 +41,11 @@ class Chain {
         return this.chain[this.chain.length - 1]
     }
 
-    
+    addBlock(transaction: Transaction, senderPublicKey: string, signature: string){
+        const newBlock = new Block(this.lastBlock.hash, transaction);
+        this.chain.push(newBlock);
+    }
+
 }
 
 class Wallet {
