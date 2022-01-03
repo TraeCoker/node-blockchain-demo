@@ -46,6 +46,13 @@ class Block {
     }
 }
 class Chain {
+    constructor() {
+        this.chain = [new Block('', new Transaction(100, 'genesis', 'satoshi'))];
+    }
+    get lastBlock() {
+        return this.chain[this.chain.length - 1];
+    }
 }
+Chain.instance = new Chain();
 class Wallet {
 }

@@ -29,7 +29,19 @@ class Block {
 }
 
 class Chain {
+    public static instance = new Chain()
 
+    chain: Block[];
+
+    constructor(){
+        this.chain = [new Block('', new Transaction(100, 'genesis', 'satoshi'))]
+    }
+
+    get lastBlock() {
+        return this.chain[this.chain.length - 1]
+    }
+
+    
 }
 
 class Wallet {
